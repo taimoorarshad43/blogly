@@ -18,6 +18,7 @@ class User(db.Model):
                           nullable = False)
     lastname = db.Column(db.String(40),
                          nullable = False)
-    image_url = db.Column(db.String)            # What if the user is shy?
+    image_url = db.Column(db.String,
+                          nullable = False)     # Want all users to have some sort of image.
 
 
