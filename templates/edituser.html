@@ -2,10 +2,10 @@
 
 {% block title%} Edit User {%endblock%}
 
-{%block header} <h2>Edit User</h2> {%endblock%}
+{%block header%} <h2>Edit User</h2> {%endblock%}
 
 {%block body %}
-<form action = '/user/{{user.id}}/edit' method = 'POST'>
+<form action = '/users/{{user.id}}/edit' method = 'POST'>
     <label>First Name: </label>
     <input type = "text" name = "firstname"><br>
     <label>Last Name: </label>
