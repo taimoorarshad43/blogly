@@ -8,9 +8,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
-with app.app_context():
+with app.app_context():                                         # New in Flask 3. You need the app_context to work with the application object.
     connect_db(app)
     db.create_all()
+    User.query.delete()                                         # Start with a fresh table
+    db.session.commit()
 
 
 @app.route('/')
@@ -41,7 +43,7 @@ def adduserpost():
 
     users = User.query.all()
 
-    return redirect('/users.html', users = users)
+    return redirect('/users')
 
 @app.route('/users/<int:userid>')
 def getuser(userid):
@@ -76,4 +78,7 @@ def deleteuser(userid):
 
     users = User.query.all()
 
-    return redirect('/', users = users)
+    return redirect('/')
+
+
+# "C:\Users\taimo\OneDrive\Pictures\bing_lock_screen\ed3f453eaa60b552e39d0cc82cff9ab6dc555c9ef9d3f8dd4a5789198e393cd5.jpeg"
