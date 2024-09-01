@@ -36,6 +36,8 @@ def adduserpost():
     lastname = request.form['lastname']
     imgurl = request.form['imgurl'] if len(request.form['imgurl']) > 0 else pic
 
+    # Allows for a default picture
+
     user = User(firstname = firstname, lastname = lastname, image_url = imgurl)
 
     db.session.add(user)
@@ -78,6 +80,6 @@ def deleteuser(userid):
     User.query.filter_by(id = userid).delete()
     db.session.commit()
 
-    users = User.query.all()
+    users = User.query.all()                    # Not sure if we need this
 
     return redirect('/')
