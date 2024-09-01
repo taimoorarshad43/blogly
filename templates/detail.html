@@ -8,6 +8,7 @@
 {% if image_url %}
 <img src = '{{image_url}}' alt = '{{user.firstname}}'>
 {% endif %}
+{% if user %}
 <span>
     <div><h3>{{user.firstname}}</h3></div>
     <form>
@@ -23,4 +24,5 @@
     </div>
     </form>
 </span>
+{% endif %}
 {%endblock%}
