@@ -5,11 +5,13 @@
 {%block header} <h2>Edit User</h2> {%endblock%}
 
 {%block body %}
-<form action = '/edituser' method = 'POST'>
+<form action = '/user/{{user.id}}/edit' method = 'POST'>
     <label>First Name: </label>
     <input type = "text" name = "firstname"><br>
     <label>Last Name: </label>
     <input type = "text" name = "lastname"><br>
+    <label>Image URL: </label>
+    <input type = "text" name = "imgurl"><br>
     <button>Cancel</button>
     <button>Edit</button>
 </form>
