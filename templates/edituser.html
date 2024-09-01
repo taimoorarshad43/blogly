@@ -1,15 +1,16 @@
 {% extends 'base.html'%}
 
-{% block title%} Create User {%endblock%}
+{% block title%} Edit User {%endblock%}
 
-{%block header} <h2>Create User</h2> {%endblock%}
+{%block header} <h2>Edit User</h2> {%endblock%}
 
 {%block body %}
-<form action = '/createuser' method = 'POST'>
+<form action = '/edituser' method = 'POST'>
     <label>First Name: </label>
     <input type = "text" name = "firstname"><br>
     <label>Last Name: </label>
     <input type = "text" name = "lastname"><br>
-    <button>Create</button>
+    <button>Cancel</button>
+    <button>Edit</button>
 </form>
 {%endblock%}
