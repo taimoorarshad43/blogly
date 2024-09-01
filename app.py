@@ -67,6 +67,15 @@ def getuser(userid):
 
     return redirect('/users')
 
+@app.route('users/<int:userid>/delete', methods = ['POST'])
+def deleteuser(userid):
+
+    User.query.filter_by(id = userid).delete()
+    db.session.commit()
+
+    users = User.query.all()
+
+    return redirect('/', users = users)
 
 '''
 **GET */ :*** Redirect to list of users. (We’ll fix this in a later step).
@@ -79,7 +88,7 @@ DONE
 DONE
 
 **POST */users/new :*** Process the add form, adding a new user and going back to ***/users***
-TO-DO
+DONE
 
 **GET */users/[user-id] :***Show information about the given user. Have a button to get to their edit page, and to delete the user.
 DONE
