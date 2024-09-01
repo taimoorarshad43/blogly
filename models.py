@@ -7,7 +7,10 @@ def connect_db(app):
     db.app = app            # Assign app to db.app context
     db.init_app(app)        # Pass app to init_app function
 
-class Users(db.Model):
+class User(db.Model):
+
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer,                  # Our PK
                    primary_key = True,
                    autoincrement = True)
@@ -18,4 +21,3 @@ class Users(db.Model):
     image_url = db.Column(db.String)            # What if the user is shy?
 
 
-    
