@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block title%} Users {%endblock%}
+
+{%block header} <h2>Users</h2> {%endblock%}
+
+{%block body %}
+    {% for user in users %}
+        <ul>
+            <li>user</li>
+        </ul>
+    {% endfor %}
+
+<form action = '/createuser'>
+    <button>Add User</button>
+</form>
+{%endblock%}
