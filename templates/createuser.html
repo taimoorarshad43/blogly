@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{% block title%} Create User {%endblock%}
+
+{%block header} <h2>Create User</h2> {%endblock%}
+
+{%block body %}
+<form action = '/createuser'>
+    <label>First Name: </label>
+    <input type = "text" name = "firstname"><br>
+    <label>Last Name: </label>
+    <input type = "text" name = "lastname"><br>
+</form>
+{%endblock%}
