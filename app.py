@@ -61,9 +61,11 @@ def getusereditpost(userid):
 
     user = User.query.filter_by(id = userid).first()
 
-    user.firstname = request.form['firstname']
-    user.lastname = request.form['lastname']
-    user.image_url = request.form['imgurl']
+    user.firstname = request.form['firstname'] if len(request.form['firstname']) > 0 else user.firstname
+    user.lastname = request.form['lastname'] if len(request.form['lastname']) > 0 else user.lastname
+    user.image_url = request.form['imgurl'] if len(request.form['imgurl']) > 0 else user.image_url
+    
+    # That should allow for user to retain previous changes if they didn't want to change certain fields.
 
     db.session.add(user)
     db.session.commit()
