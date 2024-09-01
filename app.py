@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, redirect, request
 from models import db, connect_db, User
+from pic import pic
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -34,7 +35,7 @@ def adduserpost():
 
     firstname = request.form['firstname']
     lastname = request.form['lastname']
-    imgurl = request.form['imgurl']
+    imgurl = request.form['imgurl'] if len(request.form['imgurl']) > 0 else pic
 
     user = User(firstname = firstname, lastname = lastname, image_url = imgurl)
 
