@@ -5,11 +5,13 @@
 {%block header} <h2>Create User</h2> {%endblock%}
 
 {%block body %}
-<form action = '/createuser' method = 'POST'>
+<form action = '/users/new' method = 'POST'>
     <label>First Name: </label>
     <input type = "text" name = "firstname"><br>
     <label>Last Name: </label>
     <input type = "text" name = "lastname"><br>
+    <label>Image URL: </label>
+    <input type = "text" name = "imgurl"><br>
     <button>Create</button>
 </form>
 {%endblock%}
