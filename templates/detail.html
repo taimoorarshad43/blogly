@@ -6,10 +6,10 @@
 
 {%block body %}
 {% if image_url %}
-<img src = '{{image_url}}' alt = '{{username}}'>
+<img src = '{{image_url}}' alt = '{{user.firstname}}'>
 {% endif %}
 <span>
-    <div><h3>{{username}}</h3></div>
+    <div><h3>{{user.firstname}}</h3></div>
     <form>
     <div>
         <button class="btn btn-primary btn-sm"
