@@ -2,13 +2,13 @@
 
 {% block title%} Users {%endblock%}
 
-{%block header} <h2>Users</h2> {%endblock%}
+{%block header%} <h2>Users</h2> {%endblock%}
 
 {%block body %}
 {% if users %}
     {% for user in users %}
         <ul>
-            <li><a href = '{{users/{user.id}}}'>{{user.firstname}}</a></li>
+            <li><a href = 'users/{{user.id}}'>{{user.firstname}}</a></li>
         </ul>
     {% endfor %}
 {% endif %}

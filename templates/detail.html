@@ -2,11 +2,11 @@
 
 {% block title%} User Detail {%endblock%}
 
-{%block header} <h2>User Detail Page</h2> {%endblock%}
+{%block header%} <h2>User Detail Page</h2> {%endblock%}
 
 {%block body %}
-{% if image_url %}
-<img src = '{{image_url}}' alt = '{{user.firstname}}'>
+{% if user.image_url %}
+<img src = '{{user.image_url}}' alt = '{{user.firstname}}'>
 {% endif %}
 {% if user %}
 <span>
