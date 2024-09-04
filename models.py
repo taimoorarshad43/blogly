@@ -23,6 +23,8 @@ class User(db.Model):
                          nullable = False)
     image_url = db.Column(db.String,
                           nullable = False)     # Want all users to have some sort of image.
+    
+    posts = db.relationship("Post", cascade = 'all, delete-orphan')
 
 
 class Post(db.Model):
@@ -47,7 +49,7 @@ class Post(db.Model):
         default=datetime.datetime.now)
     
     user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.id'))
+                        db.ForeignKey('users.id', ondelete = 'cascade'))
 
-    users = db.relationship("User", backref = 'posts')
+    users = db.relationship("User")
     

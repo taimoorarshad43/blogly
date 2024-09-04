@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 with app.app_context():                                         # New in Flask 3. You need the app_context to work with the application object.
     connect_db(app)
-    # db.drop_all()                                               # Start with fresh db.
+    db.drop_all()                                               # Start with fresh db.
     db.create_all()
 
 ################################################### User Routes ####################################################
@@ -123,16 +123,19 @@ def getpost(postid):
 
 @app.route('/posts/<int:postid>/edit')
 def editpost(postid):
-    post = Post.query.filter_by(id = postid)
+    post = Post.query.filter_by(id = postid).first()
 
     return render_template('editpost.html', post = post)
 
 @app.route('/posts/<int:postid>/edit', methods = ['POST'])
 def editpost_post(postid):
-    post = Post.query.filter_by(id = postid)
+    post = Post.query.filter_by(id = postid).first()
 
     post.title = request.form['title'] if len(request.form['title']) > 0 else post.title
     post.content = request.form['content'] if len(request.form['content']) > 0 else post.content
+
+    db.session.add(post)
+    db.session.commit()
 
     # That should allow for user to retain previous changes if they didn't want to change certain fields.
 
@@ -141,13 +144,13 @@ def editpost_post(postid):
 @app.route('/posts/<int:postid>/delete', methods = ['POST'])
 def deletepost(postid):
     post = Post.query.filter_by(id = postid)
-    userid = post.user.id
+    userid = post.first().users.id
 
     post.delete()
 
     db.session.commit()
 
-    return redirect(f'/user/{userid}')
+    return redirect(f'/users/{userid}')
 
 '''
 **GET */users/[user-id]/posts/new :*** Show form to add a post for that user.
@@ -166,5 +169,6 @@ DONE
 DONE
 
 **POST */posts/[post-id]/delete :*** Delete the post.
+DONE
 
 '''

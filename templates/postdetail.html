@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<h1>{{ post.title }}</h1>
+<h3>{{ post.title }}</h3>
 
 <p>{{ post.content }}</p>
-<p><i>By {{ post.user.firstname }} {{post.user.lastname}}
+<p><i>By {{ post.users.firstname }} {{post.users.lastname}}
   on {{ post.created_at }}
 </i></p>
 
