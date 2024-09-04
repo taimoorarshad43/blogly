@@ -88,12 +88,6 @@ def deleteuser(userid):
 
 ################################################### Blog Post Routes ####################################################
 
-@app.route('/posts/<int:postid>')
-def getpost(postid):
-    post = Post.query.filter_by(id = postid).first()
-
-    return render_template('postdetail.html', post = post)
-
 @app.route('/users/<int:userid>/posts/new')
 def addnewpost(userid):
     user = User.query.filter_by(id = userid).first()
@@ -114,6 +108,11 @@ def addnewpost_post(userid):
 
     return redirect("userdetail.html", user = user)
 
+@app.route('/posts/<int:postid>')
+def getpost(postid):
+    post = Post.query.filter_by(id = postid).first()
+
+    return render_template('postdetail.html', post = post)
 
 @app.route('/posts/<int:postid>/edit')
 def editpost(postid):
@@ -121,15 +120,26 @@ def editpost(postid):
 
     return render_template('editpost.html', post = post)
 
-# TODO: Needs the POST version
+@app.route('/posts/<int:postid>/edit', methods = ['POST'])
+def editpost_post(postid):
+    post = Post.query.filter_by(id = postid)
+
+    post.title = request.form['title'] if len(request.form['title']) > 0 else post.title
+    post.content = request.form['content'] if len(request.form['content']) > 0 else post.content
+
+    # That should allow for user to retain previous changes if they didn't want to change certain fields.
+
+    return redirect('postdetail.html', post = post)
 
 '''
 **GET */users/[user-id]/posts/new :*** Show form to add a post for that user.
 DONE
 
 **POST */users/[user-id]/posts/new :*** Handle add form; add post and redirect to the user detail page.
+DONE
 
 **GET */posts/[post-id] :*** Show a post. Show buttons to edit and delete the post.
+DONE
 
 **GET */posts/[post-id]/edit :*** Show form to edit a post, and to cancel (back to user page).
 DONE
