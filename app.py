@@ -129,7 +129,18 @@ def editpost_post(postid):
 
     # That should allow for user to retain previous changes if they didn't want to change certain fields.
 
-    return redirect('postdetail.html', post = post)
+    return redirect(f'/posts/{post.id}')
+
+@app.route('/posts/<int:postid>/delete', methods = ['POST'])
+def deletepost(postid):
+    post = Post.query.filter_by(id = postid)
+    userid = post.user.id
+
+    post.delete()
+
+    db.session.commit()
+
+    return redirect(f'/user/{userid}')
 
 '''
 **GET */users/[user-id]/posts/new :*** Show form to add a post for that user.
@@ -145,6 +156,7 @@ DONE
 DONE
 
 **POST */posts/[post-id]/edit :*** Handle editing of a post. Redirect back to the post view.
+DONE
 
 **POST */posts/[post-id]/delete :*** Delete the post.
 
