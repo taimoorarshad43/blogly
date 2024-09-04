@@ -25,4 +25,12 @@
     </form>
 </span>
 {% endif %}
+{% if posts %}
+<h4>Posts</h4>
+{% for post in posts %}
+    <ul>
+        <li><a href = "/post/{{post.id}}">{{post.title}}</a></li>
+    </ul>
+{% endfor %}
+{% endif %}
 {%endblock%}
