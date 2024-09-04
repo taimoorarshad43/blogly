@@ -104,6 +104,14 @@ def addnewpost(userid):
 def addnewpost_post(userid):
     user = User.query.filter_by(id = userid).first()
 
+    title = request.form['title']
+    content = request.form['content']
+
+    post = Post(title = title, content = content)
+
+    db.session.add(post)
+    db.session.commit()
+
     return redirect("userdetail.html", user = user)
 
 
