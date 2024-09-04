@@ -1,5 +1,6 @@
 """Models for Blogly."""
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -8,6 +9,8 @@ def connect_db(app):
     db.init_app(app)        # Pass app to init_app function
 
 class User(db.Model):
+
+    """User Model/Class that has firstname, lastname, and image profile url. Referenced by the Post Model/Class"""
 
     __tablename__ = 'users'
 
@@ -22,3 +25,28 @@ class User(db.Model):
                           nullable = False)     # Want all users to have some sort of image.
 
 
+class Post(db.Model):
+
+    """Post Model/Class that has title, content, creation date and has foreign key to User.id"""
+
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer,
+                  primary_key = True,
+                  autoincrement = True)
+    
+    title = db.Column(db.String(40),
+                  nullable = False)
+    
+    content = db.Column(db.String(40),
+                  nullable = False)
+    
+    created_at = db.Column(
+        db.DateTime,
+        nullable=False,
+        default=datetime.datetime.now)
+    
+    user_id = db.ForeignKey('users.id')
+
+    users = db.relationship("User", backref = 'users')
+    
