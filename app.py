@@ -14,6 +14,7 @@ with app.app_context():                                         # New in Flask 3
     # db.drop_all()                                               # Start with fresh db.
     # db.create_all()
 
+################################################### User Routes ####################################################
 
 @app.route('/')
 def home():
@@ -50,7 +51,7 @@ def adduserpost():
 @app.route('/users/<int:userid>')
 def getuser(userid):
     user = User.query.filter_by(id = userid).first()
-    return render_template('detail.html', user=user)
+    return render_template('userdetail.html', user=user)
 
 @app.route('/users/<int:userid>/edit')
 def getuseredit(userid):
@@ -84,13 +85,26 @@ def deleteuser(userid):
 
     return redirect('/')
 
+
+################################################### Blog Post Routes ####################################################
+
+@app.route('/posts/<int:postid>')
+def getpost(postid):
+    post = Post.query.filter_by(id = postid).first()
+
+    return render_template('postdetail.html', post = post)
+
 @app.route('/users/<int:userid>/posts/new')
 def addnewpost(userid):
     user = User.query.filter_by(id = userid).first()
 
     return render_template("newpost.html", user = user)
 
-# TODO: Needs the POST version
+@app.route('/users/<int:userid>/posts/new', methods = ['POST'])
+def addnewpost_post(userid):
+    user = User.query.filter_by(id = userid).first()
+
+    return redirect("userdetail.html", user = user)
 
 
 @app.route('/posts/<int:postid>/edit')
