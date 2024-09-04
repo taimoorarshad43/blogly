@@ -46,7 +46,8 @@ class Post(db.Model):
         nullable=False,
         default=datetime.datetime.now)
     
-    user_id = db.ForeignKey('users.id')
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.id'))
 
-    users = db.relationship("User", backref = 'users')
+    users = db.relationship("User", backref = 'posts')
     
