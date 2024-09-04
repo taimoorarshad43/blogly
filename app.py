@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 with app.app_context():                                         # New in Flask 3. You need the app_context to work with the application object.
     connect_db(app)
     # db.drop_all()                                               # Start with fresh db.
-    # db.create_all()
+    db.create_all()
 
 ################################################### User Routes ####################################################
 
@@ -51,7 +51,11 @@ def adduserpost():
 @app.route('/users/<int:userid>')
 def getuser(userid):
     user = User.query.filter_by(id = userid).first()
-    return render_template('userdetail.html', user=user)
+    posts = Post.query.filter_by(user_id = userid)
+
+    print("Post are: ", posts)
+
+    return render_template('userdetail.html', user=user, posts = posts)
 
 @app.route('/users/<int:userid>/edit')
 def getuseredit(userid):
@@ -100,13 +104,16 @@ def addnewpost_post(userid):
 
     title = request.form['title']
     content = request.form['content']
+    user_id = user.id
 
-    post = Post(title = title, content = content)
+    post = Post(title = title, content = content, user_id = user_id)
 
     db.session.add(post)
     db.session.commit()
 
-    return redirect("userdetail.html", user = user)
+    print(user.id)
+
+    return redirect(f'/users/{user.id}')
 
 @app.route('/posts/<int:postid>')
 def getpost(postid):
