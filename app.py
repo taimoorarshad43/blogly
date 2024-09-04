@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, render_template, redirect, request
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from pic import pic
 
 app = Flask(__name__)
@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 
 with app.app_context():                                         # New in Flask 3. You need the app_context to work with the application object.
     connect_db(app)
-    db.drop_all()                                               # Start with fresh db.
-    db.create_all()
+    # db.drop_all()                                               # Start with fresh db.
+    # db.create_all()
 
 
 @app.route('/')
@@ -83,3 +83,37 @@ def deleteuser(userid):
     users = User.query.all()                    # Not sure if we need this
 
     return redirect('/')
+
+@app.route('/users/<int:userid>/posts/new')
+def addnewpost(userid):
+    user = User.query.filter_by(id = userid).first()
+
+    return render_template("newpost.html", user = user)
+
+# TODO: Needs the POST version
+
+
+@app.route('/posts/<int:postid>/edit')
+def editpost(postid):
+    post = Post.query.filter_by(id = postid)
+
+    return render_template('editpost.html', post = post)
+
+# TODO: Needs the POST version
+
+'''
+**GET */users/[user-id]/posts/new :*** Show form to add a post for that user.
+DONE
+
+**POST */users/[user-id]/posts/new :*** Handle add form; add post and redirect to the user detail page.
+
+**GET */posts/[post-id] :*** Show a post. Show buttons to edit and delete the post.
+
+**GET */posts/[post-id]/edit :*** Show form to edit a post, and to cancel (back to user page).
+DONE
+
+**POST */posts/[post-id]/edit :*** Handle editing of a post. Redirect back to the post view.
+
+**POST */posts/[post-id]/delete :*** Delete the post.
+
+'''
