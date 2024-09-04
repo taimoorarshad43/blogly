@@ -111,8 +111,6 @@ def addnewpost_post(userid):
     db.session.add(post)
     db.session.commit()
 
-    print(user.id)
-
     return redirect(f'/users/{user.id}')
 
 @app.route('/posts/<int:postid>')
@@ -151,24 +149,3 @@ def deletepost(postid):
     db.session.commit()
 
     return redirect(f'/users/{userid}')
-
-'''
-**GET */users/[user-id]/posts/new :*** Show form to add a post for that user.
-DONE
-
-**POST */users/[user-id]/posts/new :*** Handle add form; add post and redirect to the user detail page.
-DONE
-
-**GET */posts/[post-id] :*** Show a post. Show buttons to edit and delete the post.
-DONE
-
-**GET */posts/[post-id]/edit :*** Show form to edit a post, and to cancel (back to user page).
-DONE
-
-**POST */posts/[post-id]/edit :*** Handle editing of a post. Redirect back to the post view.
-DONE
-
-**POST */posts/[post-id]/delete :*** Delete the post.
-DONE
-
-'''
